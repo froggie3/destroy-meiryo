@@ -1,7 +1,6 @@
 {
-  "name": "userscript",
+  "name": "destroy-meiryo",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "destroy-meiryo": "./node_modules/.bin/generate-headers tampermonkey -m '*://*/*' -r --du https://github.com/froggie3/userscript/raw/main/src/destroy-meiryo.user.js -u https://github.com/froggie3/userscript/raw/main/src/destroy-meiryo.user.js; cat dist/headers.js"
   },
@@ -9,13 +8,13 @@
   "author": "froggie3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/froggie3/userscript.git"
+    "url": "https://github.com/froggie3/destroy-meiryo.git"
   },
   "bugs": {
-    "url": "https://github.com/froggie3/userscript.git"
+    "url": "https://github.com/froggie3/destroy-meiryo.git"
   },
   "license": "ISC",
-  "homepage": "https://github.com/froggie3/userscript.git",
+  "homepage": "https://github.com/froggie3/destroy-meiryo.git",
   "description": "A custom userstyle that replace some Meiryo or other cringy-looking fonts with BIZ UDPGothic.",
   "devDependencies": {
     "@userscripters/generate-headers": "^3.4.0",
