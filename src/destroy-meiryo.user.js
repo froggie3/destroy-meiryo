@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name           destroy-meiryo
+// @name           Destroy Meiryo
 // @author         froggie3
 // @description    A custom userstyle that replace some Meiryo or other cringy-looking fonts with BIZ UDPGothic.
 // @downloadURL    https://github.com/froggie3/userscript/raw/main/src/destroy-meiryo.user.js
