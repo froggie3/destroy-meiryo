@@ -10,7 +10,7 @@
 // @source         https://github.com/froggie3/destroy-meiryo.git
 // @supportURL     https://github.com/froggie3/destroy-meiryo.git
 // @updateURL      https://github.com/froggie3/userscript/raw/main/src/destroy-meiryo.user.js
-// @version        1.0.0
+// @version        1.0.1
 // ==/UserScript==
 
 (() => {
@@ -24,8 +24,7 @@
   ]
 
   const observer = new MutationObserver(() => {
-    const elementsToBeSansSerif = Array.from(document.querySelectorAll(toApplySansSerif))
-    for (const i of elementsToBeSansSerif) {
+    for (const i of document.querySelectorAll(toApplySansSerif)) {
       const testFonts = getComputedStyle(i).fontFamily
       for (const j of searchFonts) {
         if (j.test(testFonts)) {
@@ -35,14 +34,21 @@
       }
     }
   })
-
-  observer.observe(document.getElementsByTagName('body')[0], {
-    attributes: false,
-    childList: true,
-    subtree: true
-  })
+  function observeIfElementsReady () {
+    const targetNode = document.querySelector('body')
+    if (targetNode) {
+      observer.observe(targetNode, {
+        attributes: false,
+        childList: true,
+        subtree: true
+      })
+    } else {
+      window.setTimeout(observeIfElementsReady, 500)
+    }
+  }
+  observeIfElementsReady()
 
   /* Array.from(document.querySelectorAll(toApplymonospace)).map(x => {
-      x.style.fontFamily = "monospace, 'BIZ UDGothic', !important";
-  }); */
+    x.style.fontFamily = "monospace, 'BIZ UDGothic', !important";
+}); */
 })()
