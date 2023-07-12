@@ -10,41 +10,54 @@
 // @source         https://github.com/froggie3/destroy-meiryo.git
 // @supportURL     https://github.com/froggie3/destroy-meiryo.git
 // @updateURL      https://github.com/froggie3/userscript/raw/main/src/destroy-meiryo.user.js
-// @version        1.0.3.0
+// @version        1.0.4.0
 // ==/UserScript==
 
 (() => {
-    'use strict'
-    const toApplymonospace = 'tt, pre, code, kbd, samp, var, textarea'
-    const toApplySansSerif = `div, p, h1, h2, h3, h4, h5, h6, span, input, button, ul, ol :not(${toApplymonospace})`
-    const fontPreferences = '-apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif'
-    const searchFonts = [
-        /sans-serif/, /[Mm]eiryo/, /Hiragino Kaku/, /Yu\s?Gothic/, /MS PGothic/, /メイリオ/,
-        /ヒラギノ角ゴ/, /游ゴシック/, /ＭＳ Ｐゴシック/
-    ]
+    "use strict";
 
-    const observer = new MutationObserver(() => {
-        for (const i of document.querySelectorAll(toApplySansSerif)) {
-            const testFonts = getComputedStyle(i).fontFamily
-            for (const j of searchFonts) {
-                if (j.test(testFonts)) {
-                    i.style.fontFamily = fontPreferences
-                    break
+    const sansSerifElementsSelector = "tt, pre, code, kbd, samp, var, textarea";
+    const sansSerifElementsSelector = `div, p, h1, h2, h3, h4, h5, h6, span, input, button, ul, ol :not(${sansSerifElementsSelector})`;
+    const fontPreferences =
+        '"Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif';
+    const searchFonts = [
+        /sans-serif/,
+        /[Mm]eiryo/,
+        /Hiragino Kaku/,
+        /Yu\s?Gothic/,
+        /MS PGothic/,
+        /メイリオ/,
+        /ヒラギノ角ゴ/,
+        /游ゴシック/,
+        /ＭＳ Ｐゴシック/,
+    ];
+
+    function applySansSerifFontToElements() {
+        const sansSerifElements = document.querySelectorAll(
+            sansSerifElementsSelector
+        );
+        sansSerifElements.forEach((element) => {
+            const testFonts = getComputedStyle(element).fontFamily;
+            for (const searchFont of searchFonts) {
+                if (searchFont.test(testFonts)) {
+                    element.style.fontFamily = fontPreferences;
+                    break;
                 }
             }
-        }
-    })
-    function observeIfElementsReady() {
-        const targetNode = document.querySelector('body')
+        });
+    }
+
+    function observeDOMChanges() {
+        const observer = new MutationObserver(applySansSerifFontToElements);
+        const targetNode = document.querySelector("body");
         if (targetNode) {
             observer.observe(targetNode, {
                 attributes: false,
                 childList: true,
-                subtree: true
-            })
-        } else {
-            window.setTimeout(observeIfElementsReady, 500)
+                subtree: true,
+            });
         }
     }
-    observeIfElementsReady()
-})()
+
+    document.addEventListener("DOMContentLoaded", observeDOMChanges);
+})();
