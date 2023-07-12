@@ -16,8 +16,8 @@
 (() => {
     "use strict";
 
-    const sansSerifElementsSelector = "tt, pre, code, kbd, samp, var, textarea";
-    const sansSerifElementsSelector = `div, p, h1, h2, h3, h4, h5, h6, span, input, button, ul, ol :not(${sansSerifElementsSelector})`;
+    const monospaceElementsSelector = "tt, pre, code, kbd, samp, var, textarea";
+    const sansSerifElementsSelector = `div, p, h1, h2, h3, h4, h5, h6, span, input, button, ul, ol :not(${monospaceElementsSelector})`;
     const fontPreferences =
         '"Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif';
     const searchFonts = [
